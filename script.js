@@ -142,7 +142,7 @@ const showSlideFive = function () {
         slideFive.remove();
         showSlideSix();
       }, 1000);
-    }, 6000);
+    }, 2000);
   });
 };
 
