@@ -1,12 +1,13 @@
-// Fungsi untuk memulai musik
+// Function to start music
 function playMusic() {
   const music = document.getElementById('background-music');
   music.play();
 }
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
   playMusic();
 });
 document.body.addEventListener('click', playMusic, { once: true });
+
 const content = document.getElementById('content');
 const footer = document.getElementsByTagName('footer')[0];
 const timer = document.getElementById('timer');
@@ -15,164 +16,152 @@ const second = 1000,
   minute = second * 60,
   hour = minute * 60,
   day = hour * 24;
-let countDown = new Date('Oct 22, 2023 00:00:00').getTime(),
+
+let countDown = new Date('Nov 28, 2024 09:33:30').getTime(),
   x = setInterval(function () {
     let now = new Date().getTime(),
       distance = countDown - now;
-    // document.getElementById('days').innerText = Math.floor(distance / (day)),
-    document.getElementById('hours').innerText = Math.floor(distance / (hour)),
-      document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-      document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+    document.getElementById('hours').innerText = Math.floor(distance / hour),
+    document.getElementById('minutes').innerText = Math.floor((distance % hour) / minute),
+    document.getElementById('seconds').innerText = Math.floor((distance % minute) / second);
 
     if (distance < 0) {
-
       timer.classList.add('d-none');
       confetti();
       clearInterval(x);
-      _slideSatu();
+      showSlideOne();
     }
+  }, second);
 
-  }, second)
-
-const _slideSatu = function () {
+const showSlideOne = function () {
   const tap = document.getElementById('tap');
-  const slideSatu = document.getElementById('slideSatu');
-  slideSatu.classList.remove('d-none');
+  const slideOne = document.getElementById('slideOne');
+  slideOne.classList.remove('d-none');
   setTimeout(function () {
     tap.classList.remove('d-none');
     document.body.addEventListener('click', function () {
-      _slideDua();
-    })
-  }, 7000);
+      showSlideTwo();
+    });
+  }, 1000);
 };
 
-const _slideDua = function () {
-  const slideSatu = document.getElementById('slideSatu');
+const showSlideTwo = function () {
+  const slideOne = document.getElementById('slideOne');
   const tap = document.getElementById('tap');
-  const slideDua = document.getElementById('slideDua');
+  const slideTwo = document.getElementById('slideTwo');
 
   setTimeout(function () {
-    slideSatu.classList.replace('animate__slideInDown', 'animate__backOutDown');
+    slideOne.classList.replace('animate__slideInDown', 'animate__backOutDown');
     tap.classList.add('d-none');
     setTimeout(function () {
-      slideSatu.classList.add('d-none');
+      slideOne.classList.add('d-none');
     }, 1000);
-  }, 1000);
+  },10000000);
 
-  slideDua.classList.remove('d-none');
+  slideTwo.classList.remove('d-none');
   setTimeout(function () {
     tap.classList.remove('d-none');
     document.body.addEventListener('click', function () {
-      slideDua.classList.replace('animate__zoomInDown', 'animate__fadeOutLeft');
-      slideDua.classList.remove('animate__delay-2s', 'animate__slow');
+      slideTwo.classList.replace('animate__zoomInDown', 'animate__fadeOutLeft');
+      slideTwo.classList.remove('animate__delay-2s', 'animate__slow');
       tap.classList.add('d-none');
       setTimeout(function () {
-        slideDua.remove();
-        _slideTiga();
+        slideTwo.remove();
+        showSlideThree();
       }, 1000);
-    })
-  }, 40000);
+    });
+  }, 100);
 };
 
-const _slideTiga = function () {
+const showSlideThree = function () {
   const tap = document.getElementById('tap');
-  const slideTiga = document.getElementById('slideTiga');
+  const slideThree = document.getElementById('slideThree');
 
-  slideTiga.classList.remove('d-none');
+  slideThree.classList.remove('d-none');
   setTimeout(function () {
     tap.classList.remove('d-none');
     document.body.addEventListener('click', function () {
-      slideTiga.classList.remove('animate__delay-2s', 'animate__slow');
-      slideTiga.classList.replace('animate__fadeInRight', 'animate__fadeOut');
+      slideThree.classList.remove('animate__delay-2s', 'animate__slow');
+      slideThree.classList.replace('animate__fadeInRight', 'animate__fadeOut');
       tap.remove();
       setTimeout(function () {
-        slideTiga.remove();
-        _slideEmpat();
+        slideThree.remove();
+        showSlideFour();
       }, 1000);
-    })
-  }, 43000);
-}
-
-function getRandomPosition(element) {
-  var x = document.body.offsetHeight - element.clientHeight;
-  var y = document.body.offsetWidth - element.clientWidth;
-  var randomX = Math.floor(Math.random() * 500);
-  var randomY = Math.floor(Math.random() * y);
-  return [randomX, randomY];
+    });
+  }, 200);
 };
 
-const _slideEmpat = function () {
-  const slideEmpat = document.getElementById('slideEmpat');
+function getRandomPosition(element) {
+  const x = document.body.offsetHeight - element.clientHeight;
+  const y = document.body.offsetWidth - element.clientWidth;
+  const randomX = Math.floor(Math.random() * 500);
+  const randomY = Math.floor(Math.random() * y);
+  return [randomX, randomY];
+}
+
+const showSlideFour = function () {
+  const slideFour = document.getElementById('slideFour');
   const btn = document.getElementsByTagName('button');
-  slideEmpat.classList.remove('d-none');
+  slideFour.classList.remove('d-none');
 
   btn[0].addEventListener('click', function () {
-    var xy = getRandomPosition(slideEmpat);
-    slideEmpat.style.top = xy[0] + 'px';
-    // slideEmpat.style.left = xy[1] + 'px';
+    const xy = getRandomPosition(slideFour);
+    slideFour.style.top = xy[0] + 'px';
   });
 
   btn[1].addEventListener('click', function () {
-    slideEmpat.classList.replace('animate__fadeInDown', 'animate__bounceOut');
-    slideEmpat.classList.remove('animate__delay-2s');
+    slideFour.classList.replace('animate__fadeInDown', 'animate__bounceOut');
+    slideFour.classList.remove('animate__delay-2s');
     setTimeout(function () {
-      slideEmpat.remove()
+      slideFour.remove();
       setTimeout(() => {
-        _slideLima();
+        showSlideFive();
       }, 500);
     }, 1000);
-  })
+  });
 };
 
-const _slideLima = function () {
-  const slideLima = document.getElementById('slideLima');
-  slideLima.classList.remove('d-none');
-  const trims = document.getElementById('trims');
+const showSlideFive = function () {
+  const slideFive = document.getElementById('slideFive');
+  slideFive.classList.remove('d-none');
+  const thankYou = document.getElementById('thankYou');
 
   setTimeout(() => {
-    trims.classList.remove('d-none');
+    thankYou.classList.remove('d-none');
   }, 1000);
 
-  slideLima.addEventListener('animationend', () => {
-    slideLima.classList.add('animate__delay-3s')
-    slideLima.classList.replace('animate__bounceIn', 'animate__fadeOut');
-    trims.classList.add('animate__animated', 'animate__fadeOut', 'animate__delay-3s');
+  slideFive.addEventListener('animationend', () => {
+    slideFive.classList.add('animate__delay-3s');
+    slideFive.classList.replace('animate__bounceIn', 'animate__fadeOut');
+    thankYou.classList.add('animate__animated', 'animate__fadeOut', 'animate__delay-3s');
     setTimeout(() => {
-      trims.remove();
+      thankYou.remove();
       setTimeout(() => {
-        slideLima.remove();
-        _slideEnam();
+        slideFive.remove();
+        showSlideSix();
       }, 1000);
     }, 6000);
   });
 };
 
-const _slideEnam = function () {
-  const slideEnam = document.getElementById('slideEnam');
-  slideEnam.classList.remove('d-none');
+const showSlideSix = function () {
+  const slideSix = document.getElementById('slideSix');
+  slideSix.classList.remove('d-none');
 };
 
-
-new TypeIt("#teks1", {
-  strings: ["Hari ini, saya langitkan semua doa terbaik saya untuk kamu.", "Semoga hal-hal yang membuat kamu runtuh turut menjadi alasan kamu untuk tetap tumbuh.", "Semoga dunia senantiasa menjaga kamu dimanapun kamu berada.", "Semoga hari-hari kamu selalu diiringi cinta yang tak pernah ada batasnya." , "Semoga setiap langkahmu dimudahkan hingga tercapai apa yang kamu inginkan."],
-  startDelay: 4000,
-  speed: 75,
-  waitUntilVisible: true
+new TypeIt("#text1", {
+  strings: ["મૃતક મહિલાની હત્યા બાદ તેનું વાહન, ", "ડેબિટ કાર્ડ ચોરી લીધાં ગાંધીનગરના યુવક કિશન શેઠે", "રીટાબેન આચાર્યની હત્યા કર્યા બાદ તેમનું ડેબિટ કાર્ડ અને વાહન ચોરી લીધાં હતાં.", "May your days always be filled with endless love.", "May your every step be made easier to reach your goals."],
+  startDelay: 1000,
+  speed: 10,
+  waitUntilVisible: true,
 }).go();
 
-new TypeIt("#teks2", {
-  strings: ["Dengan ataupun tanpaku, semoga semesta selalu membahagiakan kamu bagimanapun caranya.", " ", "barakallah fi umrik, terima kasih sudah bertahan sampai sejauh ini.", " ", "- Wish all you the best"],
-  startDelay: 2000,
-  speed: 75,
-  waitUntilVisible: true
-}).go();
-
-
-new TypeIt("#trims", {
-  strings: ["Terimakasih."],
-  startDelay: 2000,
-  speed: 150,
-  loop: false,
+new TypeIt("#text2", {
+  strings: ["With or without me, may the universe always make you happy in its own way.", " ", "Happy Birthday, thank you for making it this far.", " ", "- Wish you all the best."],
+  startDelay: 1000,
+  speed: 10,
   waitUntilVisible: true,
 }).go();
 
@@ -194,7 +183,7 @@ function confetti() {
     frame = undefined,
     confetti = [];
 
-  var runFor = 2000
+  var runFor = 6000
   var isRunning = true
 
   setTimeout(() => {
@@ -205,8 +194,8 @@ function confetti() {
   var konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
     pointer = 0;
 
-  var particles = 150,
-    spread = 20,
+  var particles = 10,
+    spread = 1,
     sizeMin = 5,
     sizeMax = 12 - sizeMin,
     eccentricity = 10,
