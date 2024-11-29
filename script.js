@@ -57,7 +57,7 @@ const showSlideTwo = function () {
     setTimeout(function () {
       slideOne.classList.add('d-none');
     }, 1000);
-  },10000000);
+  },1000000);
 
   slideTwo.classList.remove('d-none');
   setTimeout(function () {
@@ -71,7 +71,7 @@ const showSlideTwo = function () {
         showSlideThree();
       }, 1000);
     });
-  }, 100);
+  }, 1000);
 };
 
 const showSlideThree = function () {
@@ -152,9 +152,9 @@ const showSlideSix = function () {
 };
 
 new TypeIt("#text1", {
-  strings: ["મૃતક મહિલાની હત્યા બાદ તેનું વાહન, ", "ડેબિટ કાર્ડ ચોરી લીધાં ગાંધીનગરના યુવક કિશન શેઠે", "રીટાબેન આચાર્યની હત્યા કર્યા બાદ તેમનું ડેબિટ કાર્ડ અને વાહન ચોરી લીધાં હતાં.", "May your days always be filled with endless love.", "May your every step be made easier to reach your goals."],
-  startDelay: 1000,
-  speed: 10,
+  strings: ["So,", " there is a dialogue from આનંદ (૧૯૭૧) ", " બાબુમોશાઈ, જીંદગી બડી હોની ચાહિયે,લંબી નહીં ", "-બરાબર કે નહીં?", "બસ એવી રીતે, each little smile you share, every giggle you make others feel","each little smile you share, every giggle you make others feel - તે પણ એક life no masterpiece છે. 🎨✨ Happy Birthday, Daxvi! આ વર્ષ તને આનંદથી ભરેલું લાગે"],
+  startDelay: 2000,
+  speed: 50,
   waitUntilVisible: true,
 }).go();
 
