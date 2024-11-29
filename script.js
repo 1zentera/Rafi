@@ -152,16 +152,16 @@ const showSlideSix = function () {
 };
 
 new TypeIt("#text1", {
-  strings: ["So,", " there is a dialogue from આનંદ (૧૯૭૧) ", " બાબુમોશાઈ, જીંદગી બડી હોની ચાહિયે,લંબી નહીં ", "-બરાબર કે નહીં?", "બસ એવી રીતે", "each little smile you share, every giggle you make others feel - તે પણ એક life no masterpiece છે. 🎨✨ Happy Birthday, Daxvi! આ વર્ષ તને આનંદથી ભરેલું લાગે"],
+  strings: ["So,", " there is a dialogue from આનંદ (૧૯૭૧) ", " બાબુમોશાઈ, જીંદગી બડી હોની ચાહિયે,લંબી નહીં ", "-બરાબર કે નહીં?", "બસ એવી રીતે", "Each time you mess up, every time you laugh it off—તે પણ એક life no masterpiece છે.","each little smile you share, every giggle you make others feel - તે પણ એક life no masterpiece છે. 🎨✨ Happy Birthday, <strong> દક્ષ્વી! </strong> આ વર્ષ તને આનંદથી ભરેલું લાગે"],
   startDelay: 2000,
-  speed: 50,
+  speed: 20,
   waitUntilVisible: true,
 }).go();
 
 new TypeIt("#text2", {
-  strings: ["ક્યારેક lone લાગવું, ક્યારેક overwhelmed feel થવું - it iz da journey", " Chasing CGPA and ranks can be exhausting, but real growth isn’t just about numbers. ", "I see you’re trying so hard, અને એજ enough છે, trust me.", " ", "- Wish you all the best."],
+  strings: ["ક્યારેક lone લાગવું, ક્યારેક overwhelmed feel થવું - it iz da journey", " Chasing CGPA and ranks can be exhausting, but real growth isn’t just about numbers. ", "I see you’re trying so hard, અને એજ enough છે, trust me.", " I hope you make it through this year just like you smoothly managed the past ones."," I hope I see you before the bomb's beeping starts and the timer runs out at PDEU!", "<strong> - Wish you all the best.</strong>"],
   startDelay: 1000,
-  speed: 10,
+  speed: 20,
   waitUntilVisible: true,
 }).go();
 
