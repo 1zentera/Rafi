@@ -1,11 +1,38 @@
 // Function to start music
 function playMusic() {
   const music = document.getElementById('background-music');
-  music.play();
+  music.play().catch(function(error) {
+    // Display a message if autoplay is blocked
+    showAudioBlockedMessage();
+  });
 }
+
+// Function to show a message when audio is blocked
+function showAudioBlockedMessage() {
+  const message = document.createElement('div');
+  message.textContent = "Audio Autoplay was prevented. Please click anywhere to allow audio.";
+  message.style.fontWeight = 'bold';
+  message.style.position = 'fixed';
+  message.style.color = 'black';
+  message.style.top = '10px';
+  message.style.left = '50%';
+  message.style.transform = 'translateX(-50%)';
+  // message.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+  message.style.padding = '10px';
+  message.style.border = '1px solid black';
+  message.style.zIndex = '1000';
+  document.body.appendChild(message);
+  // Remove the message after 10 seconds
+  setTimeout(() => {
+    message.remove();
+  }, 8000); // 10000 milliseconds = 10 seconds
+}
+
+// Call playMusic when the DOM content is fully loaded
 window.addEventListener('DOMContentLoaded', function () {
-  playMusic();
+  playMusic(); // This will attempt to play music as soon as the DOM is loaded
 });
+
 document.body.addEventListener('click', playMusic, { once: true });
 
 const content = document.getElementById('content');
