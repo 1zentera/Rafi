@@ -120,35 +120,8 @@ const showSlideThree = function () {
   }, 200);
 };
 
-function getRandomPosition(element) {
-  const x = document.body.offsetHeight - element.clientHeight;
-  const y = document.body.offsetWidth - element.clientWidth;
-  const randomX = Math.floor(Math.random() * 500);
-  const randomY = Math.floor(Math.random() * y);
-  return [randomX, randomY];
-}
 
-const showSlideFour = function () {
-  const slideFour = document.getElementById('slideFour');
-  const btn = document.getElementsByTagName('button');
-  slideFour.classList.remove('d-none');
 
-  btn[0].addEventListener('click', function () {
-    const xy = getRandomPosition(slideFour);
-    slideFour.style.top = xy[0] + 'px';
-  });
-
-  btn[1].addEventListener('click', function () {
-    slideFour.classList.replace('animate__fadeInDown', 'animate__bounceOut');
-    slideFour.classList.remove('animate__delay-2s');
-    setTimeout(function () {
-      slideFour.remove();
-      setTimeout(() => {
-        showSlideFive();
-      }, 500);
-    }, 1000);
-  });
-};
 
 const showSlideFive = function () {
   const slideFive = document.getElementById('slideFive');
@@ -160,7 +133,7 @@ const showSlideFive = function () {
   }, 1000);
 
   slideFive.addEventListener('animationend', () => {
-    slideFive.classList.add('animate__delay-3s');
+    slideFive.classList.add('animate__delay-0s');
     slideFive.classList.replace('animate__bounceIn', 'animate__fadeOut');
     thankYou.classList.add('animate__animated', 'animate__fadeOut', 'animate__delay-3s');
     setTimeout(() => {
@@ -186,12 +159,20 @@ new TypeIt("#text1", {
 }).go();
 
 new TypeIt("#text2", {
-  strings: ["ક્યારેક lone લાગવું, ક્યારેક overwhelmed feel થવું - it iz da journey", " Chasing CGPA and ranks can be exhausting, but real growth isn’t just about numbers. ", "I see you’re trying so hard, અને એજ enough છે, trust me.", " I hope you make it through this year just like you smoothly managed the past ones."," I hope I see you before the bomb's beeping starts and the timer runs out at PDEU!", "<strong> - Wish you all the best.</strong>"],
-  startDelay: 1000,
+  strings: ["ક્યારેક lone લાગવું, ક્યારેક overwhelmed feel થવું - it iz da journey", " Chasing CGPA and ranks can be exhausting, but real growth isn’t just about numbers. ", "I see you’re trying so hard, અને એજ enough છે, trust me.", " I hope you make it through this year just like you smoothly managed the past ones."," I hope I see you before the bomb's beeping starts and the timer runs out at PDEU! btw I have ordered some gifts at your address without your consent, sorry for that. They are arriving on Wednesday.", "<strong> - Wish you all the best.</strong>"],
+  startDelay: 1000,     
   speed: 30,
   waitUntilVisible: true,
 }).go();
 
+
+// new TypeIt("#giftMessage", {
+//   strings: ["I have ordered some gifts at your address without your consent, sorry for that. They are arriving on Wednesday."],
+//   startDelay: 2000,
+//   speed: 150,
+//   loop: false,
+//   waitUntilVisible: true,
+// }).go();
 
 
 'use strict';
@@ -462,3 +443,5 @@ function confetti() {
 
   if (!onlyOnKonami) poof();
 };
+
+
