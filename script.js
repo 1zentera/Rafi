@@ -1,12 +1,40 @@
-// Fungsi untuk memulai musik
+// Function to start music
 function playMusic() {
   const music = document.getElementById('background-music');
-  music.play();
+  music.play().catch(function(error) {
+    // Display a message if autoplay is blocked
+    showAudioBlockedMessage();
+  });
 }
-window.addEventListener('DOMContentLoaded', function() {
-  playMusic();
+
+// Function to show a message when audio is blocked
+function showAudioBlockedMessage() {
+  const message = document.createElement('div');
+  message.textContent = "Audio Autoplay was prevented. Please click anywhere to allow audio.";
+  message.style.fontWeight = 'bold';
+  message.style.position = 'fixed';
+  message.style.color = 'black';
+  message.style.top = '10px';
+  message.style.left = '50%';
+  message.style.transform = 'translateX(-50%)';
+  // message.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+  message.style.padding = '10px';
+  message.style.border = '1px solid black';
+  message.style.zIndex = '1000';
+  document.body.appendChild(message);
+  // Remove the message after 10 seconds
+  setTimeout(() => {
+    message.remove();
+  }, 8000); // 10000 milliseconds = 10 seconds
+}
+
+// Call playMusic when the DOM content is fully loaded
+window.addEventListener('DOMContentLoaded', function () {
+  playMusic(); // This will attempt to play music as soon as the DOM is loaded
 });
+
 document.body.addEventListener('click', playMusic, { once: true });
+
 const content = document.getElementById('content');
 const footer = document.getElementsByTagName('footer')[0];
 const timer = document.getElementById('timer');
@@ -15,167 +43,136 @@ const second = 1000,
   minute = second * 60,
   hour = minute * 60,
   day = hour * 24;
-let countDown = new Date('Oct 22, 2023 00:00:00').getTime(),
+
+let countDown = new Date('Dec 1, 2024 00:00:00').getTime(),
   x = setInterval(function () {
     let now = new Date().getTime(),
       distance = countDown - now;
-    // document.getElementById('days').innerText = Math.floor(distance / (day)),
-    document.getElementById('hours').innerText = Math.floor(distance / (hour)),
-      document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-      document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+    document.getElementById('hours').innerText = Math.floor(distance / hour),
+      document.getElementById('minutes').innerText = Math.floor((distance % hour) / minute),
+      document.getElementById('seconds').innerText = Math.floor((distance % minute) / second);
 
     if (distance < 0) {
-
       timer.classList.add('d-none');
       confetti();
       clearInterval(x);
-      _slideSatu();
+      showSlideOne();
     }
+  }, second);
 
-  }, second)
-
-const _slideSatu = function () {
+const showSlideOne = function () {
   const tap = document.getElementById('tap');
-  const slideSatu = document.getElementById('slideSatu');
-  slideSatu.classList.remove('d-none');
+  const slideOne = document.getElementById('slideOne');
+  slideOne.classList.remove('d-none');
   setTimeout(function () {
     tap.classList.remove('d-none');
     document.body.addEventListener('click', function () {
-      _slideDua();
-    })
-  }, 7000);
+      showSlideTwo();
+    });
+  }, 1000);
 };
 
-const _slideDua = function () {
-  const slideSatu = document.getElementById('slideSatu');
+const showSlideTwo = function () {
+  const slideOne = document.getElementById('slideOne');
   const tap = document.getElementById('tap');
-  const slideDua = document.getElementById('slideDua');
+  const slideTwo = document.getElementById('slideTwo');
 
   setTimeout(function () {
-    slideSatu.classList.replace('animate__slideInDown', 'animate__backOutDown');
+    slideOne.classList.replace('animate__slideInDown', 'animate__backOutDown');
     tap.classList.add('d-none');
     setTimeout(function () {
-      slideSatu.classList.add('d-none');
+      slideOne.classList.add('d-none');
     }, 1000);
-  }, 1000);
+  }, 1000000);
 
-  slideDua.classList.remove('d-none');
+  slideTwo.classList.remove('d-none');
   setTimeout(function () {
     tap.classList.remove('d-none');
     document.body.addEventListener('click', function () {
-      slideDua.classList.replace('animate__zoomInDown', 'animate__fadeOutLeft');
-      slideDua.classList.remove('animate__delay-2s', 'animate__slow');
+      slideTwo.classList.replace('animate__zoomInDown', 'animate__fadeOutLeft');
+      slideTwo.classList.remove('animate__delay-2s', 'animate__slow');
       tap.classList.add('d-none');
       setTimeout(function () {
-        slideDua.remove();
-        _slideTiga();
+        slideTwo.remove();
+        showSlideThree();
       }, 1000);
-    })
-  }, 40000);
+    });
+  }, 1000);
 };
 
-const _slideTiga = function () {
+const showSlideThree = function () {
   const tap = document.getElementById('tap');
-  const slideTiga = document.getElementById('slideTiga');
+  const slideThree = document.getElementById('slideThree');
 
-  slideTiga.classList.remove('d-none');
+  slideThree.classList.remove('d-none');
   setTimeout(function () {
     tap.classList.remove('d-none');
     document.body.addEventListener('click', function () {
-      slideTiga.classList.remove('animate__delay-2s', 'animate__slow');
-      slideTiga.classList.replace('animate__fadeInRight', 'animate__fadeOut');
+      slideThree.classList.remove('animate__delay-2s', 'animate__slow');
+      slideThree.classList.replace('animate__fadeInRight', 'animate__fadeOut');
       tap.remove();
       setTimeout(function () {
-        slideTiga.remove();
-        _slideEmpat();
+        slideThree.remove();
+        showSlideFour();
       }, 1000);
-    })
-  }, 43000);
-}
-
-function getRandomPosition(element) {
-  var x = document.body.offsetHeight - element.clientHeight;
-  var y = document.body.offsetWidth - element.clientWidth;
-  var randomX = Math.floor(Math.random() * 500);
-  var randomY = Math.floor(Math.random() * y);
-  return [randomX, randomY];
+    });
+  }, 200);
 };
 
-const _slideEmpat = function () {
-  const slideEmpat = document.getElementById('slideEmpat');
-  const btn = document.getElementsByTagName('button');
-  slideEmpat.classList.remove('d-none');
 
-  btn[0].addEventListener('click', function () {
-    var xy = getRandomPosition(slideEmpat);
-    slideEmpat.style.top = xy[0] + 'px';
-    // slideEmpat.style.left = xy[1] + 'px';
-  });
 
-  btn[1].addEventListener('click', function () {
-    slideEmpat.classList.replace('animate__fadeInDown', 'animate__bounceOut');
-    slideEmpat.classList.remove('animate__delay-2s');
-    setTimeout(function () {
-      slideEmpat.remove()
-      setTimeout(() => {
-        _slideLima();
-      }, 500);
-    }, 1000);
-  })
-};
 
-const _slideLima = function () {
-  const slideLima = document.getElementById('slideLima');
-  slideLima.classList.remove('d-none');
-  const trims = document.getElementById('trims');
+const showSlideFive = function () {
+  const slideFive = document.getElementById('slideFive');
+  slideFive.classList.remove('d-none');
+  const thankYou = document.getElementById('thankYou');
 
   setTimeout(() => {
-    trims.classList.remove('d-none');
+    thankYou.classList.remove('d-none');
   }, 1000);
 
-  slideLima.addEventListener('animationend', () => {
-    slideLima.classList.add('animate__delay-3s')
-    slideLima.classList.replace('animate__bounceIn', 'animate__fadeOut');
-    trims.classList.add('animate__animated', 'animate__fadeOut', 'animate__delay-3s');
+  slideFive.addEventListener('animationend', () => {
+    slideFive.classList.add('animate__delay-0s');
+    slideFive.classList.replace('animate__bounceIn', 'animate__fadeOut');
+    thankYou.classList.add('animate__animated', 'animate__fadeOut', 'animate__delay-3s');
     setTimeout(() => {
-      trims.remove();
+      thankYou.remove();
       setTimeout(() => {
-        slideLima.remove();
-        _slideEnam();
+        slideFive.remove();
+        showSlideSix();
       }, 1000);
-    }, 6000);
+    }, 2000);
   });
 };
 
-const _slideEnam = function () {
-  const slideEnam = document.getElementById('slideEnam');
-  slideEnam.classList.remove('d-none');
+const showSlideSix = function () {
+  const slideSix = document.getElementById('slideSix');
+  slideSix.classList.remove('d-none');
 };
 
-
-new TypeIt("#teks1", {
-  strings: ["Hari ini, saya langitkan semua doa terbaik saya untuk kamu.", "Semoga hal-hal yang membuat kamu runtuh turut menjadi alasan kamu untuk tetap tumbuh.", "Semoga dunia senantiasa menjaga kamu dimanapun kamu berada.", "Semoga hari-hari kamu selalu diiringi cinta yang tak pernah ada batasnya." , "Semoga setiap langkahmu dimudahkan hingga tercapai apa yang kamu inginkan."],
-  startDelay: 4000,
-  speed: 75,
-  waitUntilVisible: true
-}).go();
-
-new TypeIt("#teks2", {
-  strings: ["Dengan ataupun tanpaku, semoga semesta selalu membahagiakan kamu bagimanapun caranya.", " ", "barakallah fi umrik, terima kasih sudah bertahan sampai sejauh ini.", " ", "- Wish all you the best"],
+new TypeIt("#text1", {
+  strings: ["So,", " there is a dialogue from આનંદ (૧૯૭૧) ", " બાબુમોશાઈ, જીંદગી બડી હોની ચાહિયે,લંબી નહીં ", "-બરાબર કે નહીં?", "બસ એવી રીતે", "Each time you mess up, every time you laugh it off—તે પણ એક life no masterpiece છે.","each little smile you share, every giggle you make others feel - તે પણ એક life no masterpiece છે. 🎨✨ Happy Birthday, <strong> દક્ષ્વી! </strong> આ વર્ષ તને આનંદથી ભરેલું લાગે"],
   startDelay: 2000,
-  speed: 75,
-  waitUntilVisible: true
-}).go();
-
-
-new TypeIt("#trims", {
-  strings: ["Terimakasih."],
-  startDelay: 2000,
-  speed: 150,
-  loop: false,
+  speed: 30,
   waitUntilVisible: true,
 }).go();
 
+new TypeIt("#text2", {
+  strings: ["ક્યારેક lone લાગવું, ક્યારેક overwhelmed feel થવું - it iz da journey", " Chasing CGPA and ranks can be exhausting, but real growth isn’t just about numbers. ", "I see you’re trying so hard, અને એજ enough છે, trust me.", " I hope you make it through this year just like you smoothly managed the past ones."," I hope I see you before the bomb's beeping starts and the timer runs out at PDEU! btw I have ordered some gifts at your address without your consent, sorry for that. They are arriving on Wednesday.", "<strong> - Wish you all the best.</strong>"],
+  startDelay: 1000,     
+  speed: 30,
+  waitUntilVisible: true,
+}).go();
+
+
+// new TypeIt("#giftMessage", {
+//   strings: ["I have ordered some gifts at your address without your consent, sorry for that. They are arriving on Wednesday."],
+//   startDelay: 2000,
+//   speed: 150,
+//   loop: false,
+//   waitUntilVisible: true,
+// }).go();
 
 
 'use strict';
@@ -194,7 +191,7 @@ function confetti() {
     frame = undefined,
     confetti = [];
 
-  var runFor = 2000
+  var runFor = 6000
   var isRunning = true
 
   setTimeout(() => {
@@ -205,8 +202,8 @@ function confetti() {
   var konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
     pointer = 0;
 
-  var particles = 150,
-    spread = 20,
+  var particles = 10,
+    spread = 1,
     sizeMin = 5,
     sizeMax = 12 - sizeMin,
     eccentricity = 10,
@@ -446,3 +443,5 @@ function confetti() {
 
   if (!onlyOnKonami) poof();
 };
+
+
